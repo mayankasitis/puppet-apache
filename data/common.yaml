@@ -1,3 +1,6 @@
 ---
 apache::install_ensure: present
+#below vars are to specify defualt value to variables
 apache::install_name: 'apache2'
+apache::config_path: '/etc/apache2/apache2.conf'
+apache::config_ensure: 'file'
