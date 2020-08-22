@@ -3,7 +3,7 @@
 # A description of what this class does
 #
 # @example
-#   include apache
+#   include apache and nginx
 class apache (
   String $install_name,
   String $install_ensure,
