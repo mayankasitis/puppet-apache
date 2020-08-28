@@ -1,0 +1,28 @@
+Windows Server Ansible Requirement:
+1.	Ansible requires PowerShell 3.0 or newer and at least .NET 4.0 to be installed on the Windows host.
+2.	A WinRM listener should be created and activated.
+
+Check PowerShell version:
+$host.Version 
+Check .Net version : Run below command on powershell or cmd:
+reg query "HKLM\SOFTWARE\Microsoft\Net Framework Setup\NDP" /s
+
+There are two main components of the WinRM service that governs how Ansible can interface with the Windows host: the listener and the service configuration settings.
+ ConfigureRemotingForAnsible.ps1 can be used to set up the basics. This script sets up both HTTP and HTTPS listeners with a self-signed certificate and enables the Basic authentication option on the service.
+To use this script, run the following in PowerShell:
+$url = "https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1"
+$file = "$env:temp\ConfigureRemotingForAnsible.ps1"
+
+(New-Object -TypeName System.Net.WebClient).DownloadFile($url, $file)
+
+powershell.exe -ExecutionPolicy ByPass -File $file
+Winrm http port : 5985 , https port : 5986
+To view the current listeners that are running on the WinRM service, run the following command:
+winrm enumerate winrm/config/Listener
+
+
+Run the following command to get the WinRM configuration.
+winrm get winrm/config
+on Ansible server :
+yum install python-pip
+pip install 
